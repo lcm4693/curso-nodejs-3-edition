@@ -1,19 +1,8 @@
-const name = require('./utils.js')
+const validator = require('validator')
 const getNotes = require('./notes.js')
 
-const fs = require('fs')
+const msg = getNotes()
+console.log(msg)
 
-//Criação do arquivo
-fs.writeFileSync('notes.txt', 'Meu nome é ')
-console.log('Arquivo já criado')
-
-//Append no arquivo
-fs.appendFileSync('notes.txt', 'Diego Serpa')
-console.log('Arquivo finalizado')
-
-console.log(name)
-
-//Expondo uma função para outros arquivos JS
-const stringRetorno = getNotes()
-console.log(stringRetorno)
-
+console.log(validator.isEmail('diego@example.com'))
+console.log(validator.isURL('http://www.uol.com.br'))
