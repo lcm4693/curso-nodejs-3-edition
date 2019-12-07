@@ -1,14 +1,40 @@
-const validator = require('validator')
-const getNotes = require('./notes.js')
+const name = require('./utils.js');
+const yargs = require('yargs');
+const getNotes = require('./notes.js');
 
-const chalk = require('chalk')
+// const command = process.argv[2];
 
-const msg = getNotes()
-console.log(msg)
+yargs.command({
+    command: 'add',
+    describe: 'Add a node',
+    handler: function (){
+        console.log('Adding a node!');
+    }
+});
 
-console.log(validator.isEmail('diego@example.com'))
-console.log(validator.isURL('http://www.uol.com.br'))
+yargs.command({
+    command: 'remove',
+    describe: 'Remove a node',
+    handler: function (){
+        console.log('Removing a node!');
+    }
+});
 
-console.log(chalk.green.bold.inverse('Success'))
+yargs.command({
+    command: 'read',
+    describe: 'Read a node',
+    handler: function (){
+        console.log('Reading a node!');
+    }
+});
 
-console.log('Teste do Nodemon')
+yargs.command({
+    command: 'list',
+    describe: 'List the nodes',
+    handler: function (){
+        console.log('Listing the node!');
+    }
+});
+
+console.log(process.argv);
+console.log(yargs.argv);
