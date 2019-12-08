@@ -1,6 +1,6 @@
-console.log('util.js')
+console.log('util.js');
 
-const name = 'Diego'
+const name = 'Diego';
 
 //Isso aqui é o retorno do require('')
-module.exports = name
+module.exports = name;

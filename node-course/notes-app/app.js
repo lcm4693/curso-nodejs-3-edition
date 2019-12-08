@@ -1,6 +1,6 @@
-const name = require('./utils.js');
+// const name = require('./utils.js');
 const yargs = require('yargs');
-const getNotes = require('./notes.js');
+const notes = require('./notes.js');
 
 // const command = process.argv[2];
 
@@ -21,16 +21,24 @@ yargs.command({
     },
     handler: function (argv){
         // console.log('Adding a node!');
-        console.log('Title: ' + argv.title);
-        console.log('Body: ' + argv.body);
+        // console.log('Title: ' + argv.title);
+        // console.log('Body: ' + argv.body);
+        notes.addNote(argv.title, argv.body);
     }
 });
 
 yargs.command({
     command: 'remove',
     describe: 'Remove a node',
-    handler: function (){
-        console.log('Removing a node!');
+    builder: {
+        title: {
+            describe: 'Node title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv){
+        notes.removeNote(argv.title);
     }
 });
 
@@ -50,5 +58,8 @@ yargs.command({
     }
 });
 
+//Realiza a execução do yargs
+yargs.parse();
+
 // console.log(process.argv);
-console.log(yargs.argv);
+// console.log(yargs.argv);
