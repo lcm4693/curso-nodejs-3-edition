@@ -4,6 +4,20 @@ const chalk = require('chalk');
 const getNotes = function() {
   return 'Your notes...';
 };
+
+const readNote = (title) => {
+    const notes = loadNotes();
+    const noteFound = notes.find((note) => note.title === title);
+
+    if(noteFound){
+        console.log('Title: ' + chalk.yellow.bold(noteFound.title));
+        console.log('Body: ' + noteFound.body);
+    }else{
+        console.log(chalk.red.inverse('No note found'));
+    }
+
+};
+
 const listNotes = () => {
     const notes = loadNotes();
     if(notes.length > 0){
@@ -18,7 +32,6 @@ const listNotes = () => {
         console.log(chalk.red('Não há notas para exibir'));
     }
 };
-
 
 const removeNote = (title) => {
     const notes = loadNotes();
@@ -35,12 +48,17 @@ const removeNote = (title) => {
 
 const addNote = (title, body)  => {
     const notes = loadNotes();
-    const duplicateNotes = notes.filter((note) => {
-        //Comparando se a nota da iteração possui o title igual ao title da function addNote
-        return note.title === title;
-    });
+    
+    // const duplicateNotes = notes.filter((note) => {
+    //     //Comparando se a nota da iteração possui o title igual ao title da function addNote
+    //     return note.title === title;
+    // });
 
-    if(duplicateNotes.length === 0){
+    //O método find, ao encontrar o objeto, dá um break.
+    //O método usado acima, o filter, busca sempre um array, por isso não dá break ao achar um resultado
+    const duplicateNote = notes.find((note) => note.title === title);
+
+    if(!duplicateNote){
         notes.push({
             title: title,
             body: body
@@ -70,5 +88,6 @@ module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
-  listNotes: listNotes
+  listNotes: listNotes,
+  readNote: readNote
 };
