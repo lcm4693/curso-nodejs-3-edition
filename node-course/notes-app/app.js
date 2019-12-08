@@ -19,7 +19,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function (argv){
+    handler(argv){
         // console.log('Adding a node!');
         // console.log('Title: ' + argv.title);
         // console.log('Body: ' + argv.body);
@@ -37,7 +37,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function (argv){
+    handler(argv){ 
         notes.removeNote(argv.title);
     }
 });
@@ -45,17 +45,13 @@ yargs.command({
 yargs.command({
     command: 'read',
     describe: 'Read a node',
-    handler: function (){
-        console.log('Reading a node!');
-    }
+    handler: () => console.log('Reading a node!')
 });
 
 yargs.command({
     command: 'list',
     describe: 'List the nodes',
-    handler: function (){
-        console.log('Listing the node!');
-    }
+    handler: () => notes.listNotes()
 });
 
 //Realiza a execução do yargs
