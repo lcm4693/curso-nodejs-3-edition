@@ -19,8 +19,6 @@ request({ url: urlFinal, json: true }, (error, response) => {
 const city = 'marseille';
 const urlMaps = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + city +'.json?proximity=-74.70850,40.78375&access_token=pk.eyJ1IjoibGNtNDY5MyIsImEiOiJjazN5bjliMWMwMDEyM2ZxaXo0ajlkMm1wIn0.DBDJv8C8RXaedQaUmV2dOg&limit=3';
 
-// console.log(urlMaps);
-
 request({ url: urlMaps, json: true }, (error, response) => {
 
     if(error){
@@ -34,7 +32,6 @@ request({ url: urlMaps, json: true }, (error, response) => {
         const longitude = result.center[0];
         const latitude = result.center[1];
     
-        // console.log(latitude, longitude);
         console.log(result.place_name + ' is in latitude ' + latitude +  ' and longitude ' + longitude);
     }
 });
