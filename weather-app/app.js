@@ -16,7 +16,7 @@ if(yargs.argv.city){
             }
             
             console.log('Location: ' + data.location);
-            console.log('Data', forecastData)
+            console.log(forecastData)
         });
     })
 }else{
