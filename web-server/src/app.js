@@ -6,9 +6,32 @@ const express = require('express');
 
 const app = express();
 
+app.set('view engine', 'hbs')
+
 const publicDirectoryPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicDirectoryPath))
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'About me',
+        name: 'Diego Serpa'
+    })
+})
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        help: 'Help Page',
+        message: 'It\'s a page for help you'
+    })
+})
+
+app.get('', (request, response) => {
+    response.render('index', {
+        title: 'Weather App',
+        name: 'Diego Serpa'
+    })
+})
 
 //Após colocar o arquivo index.html, ele é chamado automaticamente
 //através do express.static
