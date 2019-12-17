@@ -46,9 +46,37 @@ app.get('', (request, response) => {
 })
 
 app.get('/weather', (request, response) => {
-    response.send({
-        forecast: '50 graus',
-        location: 'Rio de Janeiro'
+
+    if(!request.query.address){
+        return response.send({
+            error: 'You have to provide an address.'
+        })
+    }
+    const address = request.query.address;
+
+    return response.send({
+        forecast: 'Está calor',
+        location: 'Rio de Janeiro',
+        address: address
+    })
+})
+
+
+
+
+
+
+
+app.get('/products', (request, response) => {
+
+    if(!request.query.search){
+        return response.send({
+            error: 'You must provide a search term'
+        })
+    }
+
+    return response.send({
+        products: []
     })
 })
 
