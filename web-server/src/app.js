@@ -45,6 +45,13 @@ app.get('', (request, response) => {
     })
 })
 
+app.get('/weather', (request, response) => {
+    response.send({
+        forecast: '50 graus',
+        location: 'Rio de Janeiro'
+    })
+})
+
 //Após colocar o arquivo index.html, ele é chamado automaticamente
 //através do express.static
 // app.get('', (request, response) => {
@@ -65,10 +72,19 @@ app.get('', (request, response) => {
 //     response.redirect('about.html')
 // })
 
-app.get('/weather', (request, response) => {
-    response.send({
-        forecast: '50 graus',
-        location: 'Rio de Janeiro'
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: 'Article error',
+        errorMessage: 'Help article not found',
+        name: 'Lívia de Melo'
+    })
+})
+
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        errorMessage: 'Page not found',
+        name: 'Lívia de Melo'
     })
 })
 
