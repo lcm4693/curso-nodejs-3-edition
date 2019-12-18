@@ -57,7 +57,8 @@ app.get('/weather', (request, response) => {
   }
   const address = request.query.address;
 
-  geocode(address, (error, { latitude, longitude, location }) => {
+  // I had to destructure the second parameter cause when I've passed '!' as parameter on query String, the system crashed.
+  geocode(address, (error, { latitude, longitude, location } = {}) => {
     if (error) {
       console.log(error);
       return response.send({error})
