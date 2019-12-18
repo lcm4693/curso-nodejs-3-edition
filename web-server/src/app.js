@@ -1,84 +1,93 @@
-const path = require('path')
+const path = require('path');
 const express = require('express');
 
-const hbs = require('hbs')
+const hbs = require('hbs');
 
 // console.log(__dirname)
 // console.log(__filename)
 
+const geocode = require('./utils/geocode.js');
+const forecast = require('./utils/forecast.js');
+
 const app = express();
 
-const publicDirectoryPath = path.join(__dirname, '../public')
+const publicDirectoryPath = path.join(__dirname, '../public');
 
 // Customizing the folder for views
-const viewsPath = path.join(__dirname, '../templates/views')
+const viewsPath = path.join(__dirname, '../templates/views');
 
-const partialsPath = path.join(__dirname, '../templates/partials')
+const partialsPath = path.join(__dirname, '../templates/partials');
 
 //Setup handlebars engine and views location
-app.set('view engine', 'hbs')
-app.set('views', viewsPath)
-hbs.registerPartials(partialsPath)
+app.set('view engine', 'hbs');
+app.set('views', viewsPath);
+hbs.registerPartials(partialsPath);
 
 // Define public directory for Express use to find static resources
-app.use(express.static(publicDirectoryPath))
+app.use(express.static(publicDirectoryPath));
 
 app.get('/about', (req, res) => {
-    res.render('about', {
-        title: 'About me',
-        name: 'Lívia de Melo'
-    })
-})
+  res.render('about', {
+    title: 'About me',
+    name: 'Lívia de Melo'
+  });
+});
 
 app.get('/help', (req, res) => {
-    res.render('help', {
-        title: 'Help Page',
-        message: 'It\'s a page for help you',
-        name: 'Lívia de Melo'
-    })
-})
+  res.render('help', {
+    title: 'Help Page',
+    message: 'It\'s a page for help you',
+    name: 'Lívia de Melo'
+  });
+});
 
 app.get('', (request, response) => {
-    response.render('index', {
-        title: 'Weather App',
-        name: 'Lívia de Melo'
-    })
-})
+  response.render('index', {
+    title: 'Weather App',
+    name: 'Lívia de Melo'
+  });
+});
 
 app.get('/weather', (request, response) => {
 
-    if(!request.query.address){
-        return response.send({
-            error: 'You have to provide an address.'
-        })
-    }
-    const address = request.query.address;
-
+  if (!request.query.address) {
     return response.send({
-        forecast: 'Está calor',
-        location: 'Rio de Janeiro',
+      error: 'You have to provide an address.'
+    });
+  }
+  const address = request.query.address;
+
+  geocode(address, (error, { latitude, longitude, location }) => {
+    if (error) {
+      console.log(error);
+      return response.send({error})
+    }
+
+    forecast(latitude, longitude, (error, forecastData) => {
+      if (error) {
+        return console.log('Error', error)
+      }
+
+      return response.send({
+        forecast: forecastData,
+        location,
         address: address
-    })
-})
-
-
-
-
-
-
+      });
+    });
+  })
+});
 
 app.get('/products', (request, response) => {
-
-    if(!request.query.search){
-        return response.send({
-            error: 'You must provide a search term'
-        })
-    }
-
+  if (!request.query.search) {
     return response.send({
-        products: []
-    })
-})
+      error: 'You must provide a search term'
+    });
+  }
+
+  return response.send({
+    products: []
+  });
+});
 
 //Após colocar o arquivo index.html, ele é chamado automaticamente
 //através do express.static
@@ -101,21 +110,21 @@ app.get('/products', (request, response) => {
 // })
 
 app.get('/help/*', (req, res) => {
-    res.render('404', {
-        title: 'Article error',
-        errorMessage: 'Help article not found',
-        name: 'Lívia de Melo'
-    })
-})
+  res.render('404', {
+    title: 'Article error',
+    errorMessage: 'Help article not found',
+    name: 'Lívia de Melo'
+  });
+});
 
 app.get('*', (req, res) => {
-    res.render('404', {
-        title: '404',
-        errorMessage: 'Page not found',
-        name: 'Lívia de Melo'
-    })
-})
+  res.render('404', {
+    title: '404',
+    errorMessage: 'Page not found',
+    name: 'Lívia de Melo'
+  });
+});
 
 app.listen(3000, () => {
-    console.log('Server is up on port 3000.');
-})
+  console.log('Server is up on port 3000.');
+});

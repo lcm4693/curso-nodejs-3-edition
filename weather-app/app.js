@@ -4,6 +4,8 @@ const yargs = require('yargs')
 const geocode = require('./utils/geocode.js');
 const forecast = require('./utils/forecast.js');
 
+// node app.js --city="Rio de Janeiro"
+
 if(yargs.argv.city){
     geocode(yargs.argv.city, (error, { latitude, longitude, location } ) => {
         if(error){

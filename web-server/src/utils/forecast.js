@@ -6,14 +6,14 @@ const forecast = (latitude, longitude, callback) => {
     const parameters = '?units=si&lang=pt';
     const urlFinal = url + parameters;
 
-    request({ url: urlFinal, json: true }, (error, response) => {
+    request({ url: urlFinal, json: true }, (error, { body }) => {
         if(error){
             callback('Unable to connect to Weather service', undefined);
-        }else if(response.body.error){
+        }else if(body.error){
             callback('Unable to find location on Weather service', undefined);
         }else{
-            const currently = response.body.currently;
-            const retorno = response.body.daily.data[0].summary + ' It\'s currently ' + currently.temperature + ' degrees out. There is a ' + currently.precipProbability + '% chance of rain.';
+            const currently = body.currently;
+            const retorno = body.daily.data[0].summary + ' Temperatura de ' + currently.temperature + ' graus. A possibilidade de chuva é de ' + currently.precipProbability + '%.';
             callback(undefined, retorno);
         }
     })
