@@ -1,0 +1,5 @@
+#Creating a new container for mongo
+docker run -d --name mongo -v /home/11251858724/mongodb-data:/data/db  mongo
+
+#Creating a link between mong and mongo-express
+docker run --name mongo-admin --link mongo:mongo -p 8081:8081 mongo-express
