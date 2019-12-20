@@ -12,7 +12,7 @@ const forecast = require('./utils/forecast.js');
 const app = express();
 const port = process.env.PORT || 3000;
 
-
+// Teste
 const publicDirectoryPath = path.join(__dirname, '../public');
 
 // Customizing the folder for views
