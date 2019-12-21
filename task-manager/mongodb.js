@@ -1,10 +1,17 @@
 // CRUD create read update delete
 
-const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
+// const mongodb = require("mongodb");
+// const MongoClient = mongodb.MongoClient;
+// const ObjectID = mongodb.ObjectID;
+
+// Essa desestruturação aqui faz o mesmo que as 3 linhas de cima.
+const { MongoClient, ObjectID } = require("mongodb");
 
 const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
+
+const id = new ObjectID();
+console.log(id);
 
 MongoClient.connect(
   connectionURL,
@@ -54,19 +61,28 @@ MongoClient.connect(
     //This was my challenge.
     //Create three documents in tasks collection. It was so easy.
 
-    const tasks = [
-      { description: "Consertar a Internet", completed: false },
-      { description: "Voltar pra casa", completed: true },
-      { description: "Ir ao supermercado", completed: false }
-    ];
+    // const tasks = [
+    //   { description: "Consertar a Internet", completed: false },
+    //   { description: "Voltar pra casa", completed: true },
+    //   { description: "Ir ao supermercado", completed: false }
+    // ];
 
-    db.collection("tasks").insertMany(tasks, {}, (error, result) => {
-      if (error) {
-        return console.log("Unable to create the tasks");
-      }
+    // db.collection("tasks").insertMany(tasks, {}, (error, result) => {
+    //   if (error) {
+    //     return console.log("Unable to create the tasks");
+    //   }
 
-      return console.log(result.ops);
-    });
+    //   return console.log(result.ops);
+    // });
+
+    // db.collection("users").insertOne(
+    //   { _id: id, name: "Cássia Serpa", age: 59 },
+    //   (error, result) => {
+    //     return console.log(JSON.stringify(result.ops));
+    //   }
+    // );
+
+    
 
   }
 );
