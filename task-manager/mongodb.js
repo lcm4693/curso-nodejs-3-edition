@@ -10,22 +10,11 @@ const { MongoClient, ObjectID } = require("mongodb");
 const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
 
-const id = new ObjectID();
-console.log(id);
+// const id = new ObjectID();
+// console.log(id);
 
-MongoClient.connect(
-  connectionURL,
-  { useNewUrlParser: true },
-  (error, client) => {
-    if (error) {
-      return console.log("Unable to connect to database!");
-    }
-
-    // console.log('Connected correctly!');
-
-    const db = client.db(databaseName);
-
-    // db.collection('users').insertOne({
+const insertFunctions = (db) => {
+  // db.collection('users').insertOne({
     //     name: 'Diego',
     //     age: 33
     // }, (error, result) => {
@@ -71,7 +60,6 @@ MongoClient.connect(
     //   if (error) {
     //     return console.log("Unable to create the tasks");
     //   }
-
     //   return console.log(result.ops);
     // });
 
@@ -81,8 +69,59 @@ MongoClient.connect(
     //     return console.log(JSON.stringify(result.ops));
     //   }
     // );
+}
 
-    
+const findFunctions = (db) => {
+
+  //A simple search to find a document with age = 4
+  // db.collection('users').findOne({ age: 4}, (error, user) => {
+  //   if(error){
+  //     return console.log('Unable to fetch')
+  //   }
+  //   console.log('Age 59. User: ' + JSON.stringify(user))
+  // });
+
+  //When we search for id, we need to use the ObjectID, because that String is only a representation of a binary value
+  // db.collection('users').findOne({ _id: new ObjectID('5dfd9f61e038e9350e5fd40a') }, (error, user) => {
+  //   if(error){
+  //     return console.log('Unable to fetch')
+  //   }
+  //   console.log('ID 5dfd9f61e038e9350e5fd40a. User: ' + JSON.stringify(user))
+  // })
+
+  // db.collection('users').find( {age: 59}).toArray((error, users) => {
+  //   console.log(users);
+  // });
+
+  // db.collection('users').find( {age: 59}).count((error, count) => {
+  //   console.log(count);
+  // });
+
+  db.collection('tasks').findOne({ _id: ObjectID("5dfe3c9b7cc28c1f6b4ce1d1") }, (error, result) => {
+    console.log(result);
+  });
+
+  db.collection('tasks').find({completed: false}).toArray((error, array) => {
+    console.log(array);
+  })
+
+}
+
+MongoClient.connect(
+  connectionURL,
+  { useNewUrlParser: true },
+  (error, client) => {
+    if (error) {
+      return console.log("Unable to connect to database!");
+    }
+
+    // console.log('Connected correctly!');
+
+    const db = client.db(databaseName);
+
+    // insertFunctions(db);
+    findFunctions(db);
+
 
   }
 );
