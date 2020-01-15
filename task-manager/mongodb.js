@@ -108,7 +108,6 @@ const updateFunctions = db => {
   // }).catch((error) => {
   //   console.log(error);
   // });
-
   // db.collection("tasks").updateMany(
   //   {
   //     completed: false
@@ -125,9 +124,26 @@ const updateFunctions = db => {
   // });
 };
 
-const deleteFunction = (db) => {
+const deleteFunction = db => {
 
-}
+  // db.collection('tasks').deleteOne({
+  //   _id: new ObjectID("5dfda11448e02f36bc91221b")
+  // }).then((result) => {
+  //   console.log(result);
+  // }).catch((error) => {
+  //   console.log(error);
+  // });
+
+  // db.collection('tasks').deleteMany({
+  //   completed: true
+  // }).then((result) => {
+  //   console.log(result.deletedCount);
+  // }).catch((error) => {
+  //   console.log(error);
+  // });
+
+
+};
 
 MongoClient.connect(
   connectionURL,
@@ -144,6 +160,6 @@ MongoClient.connect(
     // insertFunctions(db);
     // findFunctions(db);
     // updateFunctions(db);
-    deleteFunction(db);
+    // deleteFunction(db);
   }
 );
